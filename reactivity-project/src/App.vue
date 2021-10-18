@@ -1,19 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <form class="name-form" @submit.prevent="onSubmit">
+      <label>Enter your name:</label>
+      <p>
+        <input id="name-info">
+        <input type="submit" value="Enter">
+      </p>
+    </form>
+
+    <div class="food-choices">
+      <ul>
+        <button > {{}} </button>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    
   }
-}
+  /*data() {
+    return {
+      foodChoices: ['hamburger', 'pizza', 'fries', 'salad'],
+      drinkChoices: ['water', 'soda', 'orange juice', 'coffee']
+    }
+  } */
+} 
 </script>
 
 <style lang="scss">
@@ -24,5 +41,11 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.name-form {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
 }
 </style>
