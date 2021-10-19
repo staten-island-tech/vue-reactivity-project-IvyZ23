@@ -11,10 +11,22 @@
 
     <div class="food-choices">
       <ul>
-        <button > {{}} </button>
+        <button v-for="foodChoice in foodChoices" :key="foodChoice"> {{ foodChoice.food }} </button>
+        <img class="image" v-for="foodChoice in foodChoices" :key="foodChoice" v-bind:src="foodChoice.foodImage">
       </ul>
     </div>
+
+    <div class="drink-choices">
+      <ul>
+        <div class="drink">
+          <button v-for="drinkChoice in drinkChoices" :key="drinkChoice"> {{ drinkChoice.drink }} </button>
+          <img class="image" v-for="drinkChoice in drinkChoices" :key="drinkChoice" v-bind:src="drinkChoice.drinkImage">
+        </div>
+      </ul>
+    </div>
+
   </div>
+
 </template>
 
 <script>
@@ -23,13 +35,55 @@ export default {
   name: 'App',
   components: {
     
-  }
-  /*data() {
+  },
+  data() {
     return {
-      foodChoices: ['hamburger', 'pizza', 'fries', 'salad'],
-      drinkChoices: ['water', 'soda', 'orange juice', 'coffee']
+      foodChoices: [ 
+        {
+          food: "Hamburger",
+          foodImage: require("./assets/hamburger.jpg"),
+          price: 0,
+        },
+        {
+          food: "Pizza",
+          foodImage: require("./assets/pizza.jpg"),
+          price: 0,
+        },
+        {
+          food: "Fries",
+          foodImage: require("./assets/fries.jpg"),
+          price: 0,
+        },
+        {
+          food: "Salad",
+          foodImage: require("./assets/salad.jpg"),
+          price: 0,
+        },
+      ],
+      drinkChoices: [ 
+        {
+          drink: "Water",
+          drinkImage: require("./assets/water.jpg"),
+          price: 0,
+        },
+        {
+          drink: "Soda",
+          drinkImage: require("./assets/soda.jpg"),
+          price: 0,
+        },
+        {
+          drink: "Orange Juice",
+          drinkImage: require("./assets/orange.jpg"),
+          price: 0,
+        },
+        {
+          drink: "Coffee",
+          drinkImage: require("./assets/coffee.jpg"),
+          price: 0,
+        },
+      ],
     }
-  } */
+  } 
 } 
 </script>
 
@@ -47,5 +101,11 @@ export default {
   display: flex;
   flex-direction: column;
   width: 30vw;
+}
+
+.image {
+  height: 6rem;
+  width: 6rem;
+  object-fit: cover;
 }
 </style>
