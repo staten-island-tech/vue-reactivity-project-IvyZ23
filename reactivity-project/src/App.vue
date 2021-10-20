@@ -1,29 +1,42 @@
 <template>
   <div id="app">
 
-    <form class="name-form" @submit.prevent="onSubmit">
-      <label>Enter your name:</label>
-      <p>
-        <input id="name-info">
-        <input type="submit" value="Enter">
-      </p>
-    </form>
+      <section id="user-inputs">
 
-    <div class="food-choices">
-      <ul>
-        <button v-for="foodChoice in foodChoices" :key="foodChoice"> {{ foodChoice.food }} </button>
-        <img class="image" v-for="foodChoice in foodChoices" :key="foodChoice" v-bind:src="foodChoice.foodImage">
-      </ul>
-    </div>
+        <div id="form-section">
+        <form class="name-form" @submit.prevent="onSubmit">
+          <label>Enter your name:</label>
+          <p>
+            <input id="name-info">
+            <input type="submit" value="Enter">
+          </p>
+        </form>
+      </div>
 
-    <div class="drink-choices">
-      <ul>
-        <div class="drink">
-          <button v-for="drinkChoice in drinkChoices" :key="drinkChoice"> {{ drinkChoice.drink }} </button>
-          <img class="image" v-for="drinkChoice in drinkChoices" :key="drinkChoice" v-bind:src="drinkChoice.drinkImage">
+      <div id="choices-section">
+        <div id="food-choices">
+          <div class="choice" v-for="foodChoice in foodChoices" :key="foodChoice">
+            <button> {{ foodChoice.food }} </button>
+            <img class="image" v-bind:src="foodChoice.foodImage">
+          </div>
         </div>
+
+        <div id="drink-choices">
+          <div class="choice" v-for="drinkChoice in drinkChoices" :key="drinkChoice">
+            <button> {{ drinkChoice.drink }} </button>
+            <img class="image" v-bind:src="drinkChoice.drinkImage">
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="order-list">
+      <h2>Your Order:</h2>
+      <ul id="list">
+        <li class="orders">testing</li>  
       </ul>
-    </div>
+    </section>
 
   </div>
 
@@ -82,7 +95,11 @@ export default {
           price: 0,
         },
       ],
+      name:null,
     }
+  },
+  method: {
+    
   } 
 } 
 </script>
@@ -95,6 +112,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display: flex;
+  flex-direction: row;
 }
 
 .name-form {
@@ -107,5 +126,35 @@ export default {
   height: 6rem;
   width: 6rem;
   object-fit: cover;
+}
+
+.choice {
+  display:flex;
+  flex-direction: column;
+}
+
+#choices-section{
+  display: flex;
+  flex-direction: column;
+}
+
+#drink-choices,
+#food-choices{
+  display: flex;
+  flex-direction: row;
+}
+
+section {
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#order-list {
+  border: 1px black solid;
+  margin: 5rem;
+  height: auto;
 }
 </style>
