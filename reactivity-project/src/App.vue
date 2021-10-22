@@ -7,13 +7,13 @@
         <form class="name-form" @submit.prevent="nameSubmitted">
           <label>Enter your name:</label>
           <p>
-            <input v-model="name" id="name-info">
+            <input v-model="name" id="name">
             <input type="submit" value="Enter">
           </p>
         </form>
       </div>
 
-      <div id="choices-section" :class="{ hidden: !nameSubmitted}">
+      <div id="choices-section" :class="{ hidden: !formSubmitted}">
         <h2>Hello {{ name }}, what would you like to order?</h2>
         <div id="food-choices">
           <div class="choice" v-for="foodChoice in foodChoices" :key="foodChoice">
@@ -96,13 +96,22 @@ export default {
           price: 0,
         },
       ],
-      name: null,
+      nameForm: [],
+      blankField: [],
     }
   },
   method: {
     nameSubmitted() {
-      console.log("name")
+      if (this.name) {
+        this.nameForm.push(this.name)
+        console.log(this.name)
+      } else {
+      if(!this.name) this.fieldBlank.push("Please enter a name.")
     }
+    },
+    formSubmitted() {
+      return this.nameForm.length;
+    } 
   } 
 } 
 </script>
