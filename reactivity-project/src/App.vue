@@ -13,7 +13,7 @@
         </form>
       </div>
 
-      <div id="choices-section" :class="{ hidden: !formSubmitted}">
+      <div id="choices-section" :class="{ hidden: !nameSubmitted}">
         <h2>Hello {{ name }}, what would you like to order?</h2>
         <div id="food-choices">
           <div class="choice" v-for="foodChoice in foodChoices" :key="foodChoice">
