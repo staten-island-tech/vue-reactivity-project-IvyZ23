@@ -13,7 +13,7 @@
         </form>
       </div>
 
-      <div id="choices-section" :class="{ hidden: !nameSubmitted}">
+      <div id="choices-section" class="hidden">
         <h2>Hello {{ name }}, what would you like to order?</h2>
         <div id="food-choices">
           <div class="choice" v-for="foodChoice in foodChoices" :key="foodChoice">
@@ -102,16 +102,10 @@ export default {
   },
   method: {
     nameSubmitted() {
-      if (this.name) {
-        this.nameForm.push(this.name)
-        console.log(this.name)
-      } else {
-      if(!this.name) this.fieldBlank.push("Please enter a name.")
+     
+        console.log('workinh')
+      
     }
-    },
-    formSubmitted() {
-      return this.nameForm.length;
-    } 
   } 
 } 
 </script>
