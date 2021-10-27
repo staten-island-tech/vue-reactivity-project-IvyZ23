@@ -3,18 +3,7 @@
 
       <section id="user-inputs">
 
-        <div id="form-section">
-        <form class="name-form" @submit.prevent="nameSubmitted">
-          <label>Enter your name:</label>
-          <p>
-            <input v-model="name" id="name">
-            <input type="submit" value="Enter">
-          </p>
-        </form>
-      </div>
-
-      <div id="choices-section" class="hidden">
-        <h2>Hello {{ name }}, what would you like to order?</h2>
+      <div id="choices-section">
         <div id="food-choices">
           <div class="choice" v-for="foodChoice in foodChoices" :key="foodChoice">
             <button> {{ foodChoice.food }} </button>
@@ -96,16 +85,11 @@ export default {
           price: 0,
         },
       ],
-      nameForm: [],
-      blankField: [],
+      order: [],
     }
   },
   method: {
-    nameSubmitted() {
-     
-        console.log('workinh')
-      
-    }
+    
   } 
 } 
 </script>
