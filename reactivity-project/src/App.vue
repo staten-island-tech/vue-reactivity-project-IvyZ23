@@ -5,15 +5,15 @@
 
       <div id="choices-section">
         <div id="food-choices">
-          <div class="choice" v-for="foodChoice in foodChoices" :key="foodChoice">
-            <button> {{ foodChoice.food }} </button>
+          <div class="choice" v-for="(foodChoice, index) in foodChoices" :key="index">
+            <button @click="updateFoodList(index)"> {{ foodChoice.food }} </button>
             <img class="image" v-bind:src="foodChoice.foodImage">
           </div>
         </div>
 
         <div id="drink-choices">
-          <div class="choice" v-for="drinkChoice in drinkChoices" :key="drinkChoice">
-            <button> {{ drinkChoice.drink }} </button>
+          <div class="choice" v-for="(drinkChoice, index) in drinkChoices" :key="index">
+            <button @click="updateDrinkList(index)"> {{ drinkChoice.drink }} </button>
             <img class="image" v-bind:src="drinkChoice.drinkImage">
           </div>
         </div>
@@ -23,9 +23,19 @@
 
     <section id="order-list">
       <h2>Your Order:</h2>
-      <ul id="list">
-        <li class="orders">testing</li>  
-      </ul>
+      <div id="orderInfo">
+        <ul class="list">
+          <h3>Ordered:</h3>
+          <li class="info" v-for="order in order" :key="order">{{ order }}</li>  
+        </ul>
+        <ul class="list">
+          <h3>Price</h3>
+          <li class="info" v-for="price in orderPrice" :key="price">${{ price }}</li>  
+        </ul>
+      </div>
+      <h3>Subtotal: ${{ subtotal }}</h3>
+      <button class="delete-btn" @click="removeLastItem()">Delete previous order.</button>
+      <button class="delete-btn" @click="removeAllItems()">Delete all orders.</button>
     </section>
 
   </div>
@@ -33,7 +43,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
   components: {
@@ -41,26 +50,29 @@ export default {
   },
   data() {
     return {
+      subtotal: 0,
+      selectedFood: 0,
+      selectedDrink: 0,
       foodChoices: [ 
         {
           food: "Hamburger",
           foodImage: require("./assets/hamburger.jpg"),
-          price: 0,
+          price: 3,
         },
         {
           food: "Pizza",
           foodImage: require("./assets/pizza.jpg"),
-          price: 0,
+          price: 2,
         },
         {
           food: "Fries",
           foodImage: require("./assets/fries.jpg"),
-          price: 0,
+          price: 1.5,
         },
         {
           food: "Salad",
           foodImage: require("./assets/salad.jpg"),
-          price: 0,
+          price: 2.00,
         },
       ],
       drinkChoices: [ 
@@ -72,29 +84,49 @@ export default {
         {
           drink: "Soda",
           drinkImage: require("./assets/soda.jpg"),
-          price: 0,
+          price: 1.00,
         },
         {
           drink: "Orange Juice",
           drinkImage: require("./assets/orange.jpg"),
-          price: 0,
+          price: 1,
         },
         {
           drink: "Coffee",
           drinkImage: require("./assets/coffee.jpg"),
-          price: 0,
+          price: 3,
         },
       ],
       order: [],
+      orderPrice: [],
     }
   },
-  method: {
-    
-  } 
+  methods: {
+    updateFoodList(index) {
+      this.order.push(this.foodChoices[index].food)
+      this.orderPrice.push(this.foodChoices[index].price)
+      this.subtotal = this.subtotal + this.foodChoices[index].price
+    },
+    updateDrinkList(index) {
+      this.order.push(this.drinkChoices[index].drink)
+      this.orderPrice.push(this.drinkChoices[index].price)
+      this.subtotal = this.subtotal + this.drinkChoices[index].price
+    },
+    removeLastItem(){
+      this.subtotal = this.subtotal - this.orderPrice[this.orderPrice.length - 1]
+      this.order.pop()
+      this.orderPrice.pop()
+    },
+    removeAllItems() {
+      this.order = []
+      this.orderPrice = []
+      this.subtotal = 0
+    }
+  },
 } 
 </script>
 
-<style lang="scss">
+<style lang="css">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -105,46 +137,53 @@ export default {
   display: flex;
   flex-direction: row;
 }
-
 .name-form {
   display: flex;
   flex-direction: column;
   width: 30vw;
 }
-
 .image {
   height: 6rem;
   width: 6rem;
   object-fit: cover;
 }
-
 .choice {
   display:flex;
   flex-direction: column;
 }
-
 #drink-choices,
 #food-choices{
   display: flex;
   flex-direction: row;
   margin: 2rem;
 }
-
 section {
   width: 50vw;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-
 #order-list {
   border: 1px black solid;
-  margin: 5rem;
+  margin: 1rem 5rem;
   height: auto;
 }
-
 .hidden {
   display: none;
+}
+
+.list {
+  list-style: none;
+}
+
+#orderInfo {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn {
+  margin-bottom: 1rem;
 }
 </style>
