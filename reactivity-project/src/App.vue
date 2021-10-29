@@ -3,18 +3,22 @@
 
       <section id="user-inputs">
 
+      <h1>The Menu:</h1>
+
       <div id="choices-section">
         <div id="food-choices">
           <div class="choice" v-for="(foodChoice, index) in foodChoices" :key="index">
             <button @click="updateFoodList(index)"> {{ foodChoice.food }} </button>
-            <img class="image" v-bind:src="foodChoice.foodImage">
+            <img class="image" :src="foodChoice.foodImage">
+            <p>${{ foodChoice.price }}</p>
           </div>
         </div>
 
         <div id="drink-choices">
           <div class="choice" v-for="(drinkChoice, index) in drinkChoices" :key="index">
             <button @click="updateDrinkList(index)"> {{ drinkChoice.drink }} </button>
-            <img class="image" v-bind:src="drinkChoice.drinkImage">
+            <img class="image" :src="drinkChoice.drinkImage">
+            <p>${{ drinkChoice.price }}</p>
           </div>
         </div>
       </div>
@@ -25,11 +29,10 @@
       <h2>Your Order:</h2>
       <div id="orderInfo">
         <ul class="list">
-          <h3>Ordered:</h3>
           <li class="info" v-for="order in order" :key="order">{{ order }}</li>  
         </ul>
         <ul class="list">
-          <h3>Price</h3>
+          
           <li class="info" v-for="price in orderPrice" :key="price">${{ price }}</li>  
         </ul>
       </div>
@@ -84,7 +87,7 @@ export default {
         {
           drink: "Soda",
           drinkImage: require("./assets/soda.jpg"),
-          price: 1.00,
+          price: 1,
         },
         {
           drink: "Orange Juice",
@@ -113,9 +116,11 @@ export default {
       this.subtotal = this.subtotal + this.drinkChoices[index].price
     },
     removeLastItem(){
-      this.subtotal = this.subtotal - this.orderPrice[this.orderPrice.length - 1]
-      this.order.pop()
-      this.orderPrice.pop()
+      if (this.order.length !== 0) {
+        this.subtotal = this.subtotal - this.orderPrice[this.orderPrice.length - 1]
+        this.order.pop()
+        this.orderPrice.pop()
+      }
     },
     removeAllItems() {
       this.order = []
